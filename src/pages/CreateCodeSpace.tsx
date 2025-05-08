@@ -21,10 +21,10 @@ import { toast } from "sonner";
 
 // Validation schema
 const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "이름은 필수 항목입니다."),
   description: z.string().optional(),
-  owner_name: z.string().min(1, "Owner name is required"),
-  password: z.string().min(4, "Password must be at least 4 characters"),
+  owner_name: z.string().min(1, "작성자는 필수항목입니다."),
+  password: z.string().min(4, "비밀번호는 최소 4자리 이상이어야합니다."),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -45,11 +45,11 @@ const CreateCodeSpace: React.FC = () => {
   const createCodeSpaceMutation = useMutation({
     mutationFn: (data: CreateCodeSpaceRequest) => api.createCodeSpace(data),
     onSuccess: () => {
-      toast.success("CodeSpace created successfully");
+      toast.success("코드스페이스 생성 성공!");
       navigate("/");
     },
     onError: () => {
-      toast.error("Failed to create CodeSpace");
+      toast.error("코드스페이스 생성 실패");
     },
   });
 
@@ -59,7 +59,7 @@ const CreateCodeSpace: React.FC = () => {
 
   return (
     <div className="container max-w-xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6 text-primary text-center">Create New CodeSpace</h1>
+      <h1 className="text-2xl font-bold mb-6 text-primary text-center">새로운 코드스페이스 생성</h1>
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -68,9 +68,9 @@ const CreateCodeSpace: React.FC = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>이름</FormLabel>
                 <FormControl>
-                  <Input placeholder="My CodeSpace" {...field} />
+                  <Input placeholder="코드스페이스" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -82,9 +82,9 @@ const CreateCodeSpace: React.FC = () => {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description (Optional)</FormLabel>
+                <FormLabel>설명 (선택)</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Describe your CodeSpace..." {...field} />
+                  <Textarea placeholder="코드 스페이스 설명" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,9 +96,9 @@ const CreateCodeSpace: React.FC = () => {
             name="owner_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Owner Name</FormLabel>
+                <FormLabel>작성자</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your name" {...field} />
+                  <Input placeholder="햄스터" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -110,7 +110,7 @@ const CreateCodeSpace: React.FC = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>비밀번호</FormLabel>
                 <FormControl>
                   <Input type="password" placeholder="Password" {...field} />
                 </FormControl>
@@ -121,10 +121,10 @@ const CreateCodeSpace: React.FC = () => {
           
           <div className="flex space-x-4 justify-end pt-4">
             <Button type="button" variant="outline" onClick={() => navigate("/")}>
-              Cancel
+              취소
             </Button>
             <Button type="submit" className="bg-primary" disabled={createCodeSpaceMutation.isPending}>
-              {createCodeSpaceMutation.isPending ? "Creating..." : "Create CodeSpace"}
+              {createCodeSpaceMutation.isPending ? "생성중" : "코드스페이스 생성"}
             </Button>
           </div>
         </form>
