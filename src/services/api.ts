@@ -131,9 +131,10 @@ export const api = {
     });
   },
 
-  deleteCodePiece: async (pieceId: number): Promise<void> => {
+  deleteCodePiece: async (pieceId: number, password: string): Promise<void> => {
     return handleRequest<void>(`${API_BASE_URL}/api/codepieces/${pieceId}`, {
       method: "DELETE",
+      body: JSON.stringify({ password }),
     });
   },
 };

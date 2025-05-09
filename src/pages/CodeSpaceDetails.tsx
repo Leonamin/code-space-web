@@ -1,20 +1,21 @@
-import React, {useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
-import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
-import {Plus, Code} from "lucide-react";
-import {api, CodePieceSummary, CodeSpace} from "@/services/api";
+
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { Plus, Code } from "lucide-react";
+import { api, CodePieceSummary, CodeSpace } from "@/services/api";
 import CodePieceCard from "@/components/CodePieceCard";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import InfiniteScroll from "@/components/InfiniteScroll";
-import {toast} from "sonner";
+import { toast } from "sonner";
 
 const CodeSpaceDetails: React.FC = () => {
     const navigate = useNavigate();
-    const {spaceId} = useParams<{ spaceId: string }>();
+    const { spaceId } = useParams<{ spaceId: string }>();
     const [selectedPieces, setSelectedPieces] = useState<number[]>([]);
 
     // Fetch CodeSpace details
-    const {data: codeSpaceDetails} = useQuery({
+    const { data: codeSpaceDetails } = useQuery({
         queryKey: ["codeSpace", spaceId],
         queryFn: () => {
             // Normally we'd fetch the CodeSpace details by ID, but the API doesn't support it
@@ -29,20 +30,22 @@ const CodeSpaceDetails: React.FC = () => {
         hasNextPage,
         isFetchingNextPage,
         isLoading,
+        refetch,
     } = useInfiniteQuery({
         queryKey: ["codePieces", spaceId],
-        queryFn: ({pageParam = 0}) =>
+        queryFn: ({ pageParam = 0 }) =>
             api.getCodePieces(Number(spaceId), pageParam),
         getNextPageParam: (lastPage, allPages) =>
             lastPage.length === 0 ? undefined : allPages.length,
         enabled: !!spaceId,
-        onError: () => {
-            toast.error("Failed to load code pieces");
+        meta: {
+            onError: () => {
+                toast.error("코드 피스 목록을 불러오는데 실패했습니다");
+            },
         },
     });
 
     const codePieces: CodePieceSummary[] = data?.pages.flat() ?? [];
-
 
     const handleSelect = (id: number) => {
         setSelectedPieces((prev) => {
@@ -66,6 +69,11 @@ const CodeSpaceDetails: React.FC = () => {
     const handleCompare = () => {
         const pieceIds = selectedPieces.join(",");
         navigate(`/pieces/compare/${pieceIds}`);
+    };
+
+    const handleCodePieceDeleted = () => {
+        refetch();
+        setSelectedPieces([]);
     };
 
     return (
@@ -98,6 +106,7 @@ const CodeSpaceDetails: React.FC = () => {
                         isSelected={selectedPieces.includes(codePiece.id)}
                         onSelect={handleSelect}
                         onViewDetails={handleViewDetails}
+                        onDeleted={handleCodePieceDeleted}
                     />
                 ))}
             </InfiniteScroll>
