@@ -20,12 +20,15 @@ const Home: React.FC = () => {
     isLoading,
   } = useInfiniteQuery({
     queryKey: ["codeSpaces"],
-    queryFn: ({ pageParam = 0 }) => api.getCodeSpaces(pageParam),
+    queryFn: ({ pageParam = 0 }) => api.getCodeSpaces(pageParam as number),
     getNextPageParam: (lastPage, allPages) =>
       lastPage.length === 0 ? undefined : allPages.length,
+    initialPageParam: 0,
     meta: {
-      onError: () => {
-        toast.error("Failed to load code spaces");
+      onSettled: (_, error) => {
+        if (error) {
+          toast.error("Failed to load code spaces");
+        }
       },
     },
   });

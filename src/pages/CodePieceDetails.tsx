@@ -15,8 +15,12 @@ const CodePieceDetails: React.FC = () => {
   const { data: codePiece, isLoading } = useQuery({
     queryKey: ["codePiece", pieceId],
     queryFn: () => api.getCodePieceDetail(Number(pieceId)),
-    onError: () => {
-      toast.error("Failed to load code piece");
+    meta: {
+      onSettled: (_, error) => {
+        if (error) {
+          toast.error("Failed to load code piece");
+        }
+      },
     },
   });
 

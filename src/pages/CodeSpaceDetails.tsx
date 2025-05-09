@@ -34,13 +34,16 @@ const CodeSpaceDetails: React.FC = () => {
     } = useInfiniteQuery({
         queryKey: ["codePieces", spaceId],
         queryFn: ({ pageParam = 0 }) =>
-            api.getCodePieces(Number(spaceId), pageParam),
+            api.getCodePieces(Number(spaceId), pageParam as number),
         getNextPageParam: (lastPage, allPages) =>
             lastPage.length === 0 ? undefined : allPages.length,
+        initialPageParam: 0,
         enabled: !!spaceId,
         meta: {
-            onError: () => {
-                toast.error("코드 피스 목록을 불러오는데 실패했습니다");
+            onSettled: (_, error) => {
+                if (error) {
+                    toast.error("코드 피스 목록을 불러오는데 실패했습니다");
+                }
             },
         },
     });
