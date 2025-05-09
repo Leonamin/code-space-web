@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import CodeEditor from "@/components/CodeEditor";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Edit } from "lucide-react";
 import { toast } from "sonner";
 
 const CodePieceDetails: React.FC = () => {
@@ -31,6 +31,10 @@ const CodePieceDetails: React.FC = () => {
     } else {
       navigate(-1);
     }
+  };
+
+  const handleEdit = () => {
+    navigate(`/pieces/${pieceId}/edit`);
   };
 
   const formatDate = (dateStr: string) => {
@@ -75,7 +79,15 @@ const CodePieceDetails: React.FC = () => {
       </Button>
 
       <div className="bg-white rounded-lg shadow-md p-6 animate-fade-in mb-8">
-        <h1 className="text-2xl font-bold mb-2 text-primary">{codePiece.name}</h1>
+        <div className="flex justify-between items-start">
+          <h1 className="text-2xl font-bold mb-2 text-primary">{codePiece.name}</h1>
+          <Button 
+            onClick={handleEdit} 
+            className="flex items-center gap-2"
+          >
+            <Edit size={16} /> 수정하기
+          </Button>
+        </div>
         
         <div className="flex flex-wrap gap-4 mb-4">
           <div className="bg-secondary/50 px-3 py-1 rounded-md text-sm">

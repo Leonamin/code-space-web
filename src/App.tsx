@@ -10,6 +10,7 @@ import Home from "@/pages/Home";
 import CreateCodeSpace from "@/pages/CreateCodeSpace";
 import CodeSpaceDetails from "@/pages/CodeSpaceDetails";
 import CreateCodePiece from "@/pages/CreateCodePiece";
+import EditCodePiece from "@/pages/EditCodePiece";
 import CodePieceDetails from "@/pages/CodePieceDetails";
 import ComparePieces from "@/pages/ComparePieces";
 import NotFound from "@/pages/NotFound";
@@ -38,6 +39,7 @@ const App = () => (
               <Route path="/spaces/:spaceId" element={<CodeSpaceDetails />} />
               <Route path="/spaces/:spaceId/pieces/create" element={<CreateCodePiece />} />
               <Route path="/pieces/:pieceId" element={<CodePieceDetails />} />
+              <Route path="/pieces/:pieceId/edit" element={<EditCodePiece />} />
               <Route path="/pieces/compare/:pieceIds" element={<ComparePieces />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

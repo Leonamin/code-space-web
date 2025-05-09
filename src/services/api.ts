@@ -42,6 +42,15 @@ export interface CreateCodePieceRequest {
   owner_name: string;
 }
 
+export interface UpdateCodePieceRequest {
+  name?: string;
+  description?: string;
+  language?: string;
+  code?: string;
+  password: string;
+  owner_name?: string;
+}
+
 const API_BASE_URL = "https://api-codespace.cuteshrew.com";
 
 async function handleRequest<T>(
@@ -123,7 +132,7 @@ export const api = {
 
   updateCodePiece: async (
     pieceId: number,
-    data: Partial<CreateCodePieceRequest> & { password: string }
+    data: UpdateCodePieceRequest
   ): Promise<void> => {
     return handleRequest<void>(`${API_BASE_URL}/api/codepieces/${pieceId}`, {
       method: "PUT",
