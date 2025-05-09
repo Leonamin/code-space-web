@@ -1,5 +1,6 @@
-
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface CodeEditorProps {
   code: string;
@@ -8,26 +9,38 @@ interface CodeEditorProps {
   readOnly?: boolean;
 }
 
-// Simple code highlighting component (in real app, you'd use a library like Prism.js or CodeMirror)
 const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, onChange, readOnly = false }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (onChange) {
-      onChange(e.target.value);
-    }
-  };
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  return (
-    <div className="rounded-md border bg-secondary/20 overflow-hidden">
-      <div className="bg-secondary px-4 py-2 text-sm font-medium flex items-center justify-between">
-        <span>{language}</span>
+  // 동적 높이 조절
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [code]);
+
+  // 읽기 전용 - Syntax Highlighting
+  if (readOnly) {
+    return (
+      <div className="rounded-md border overflow-hidden">
+        <div className="bg-secondary px-4 py-2 text-sm font-medium">{language}</div>
+        <SyntaxHighlighter language={language.toLowerCase()} style={oneDark} customStyle={{ margin: 0, padding: '1rem' }}>
+          {code}
+        </SyntaxHighlighter>
       </div>
+    );
+  }
+
+  // 편집 가능 - Textarea
+  return (
+    <div className="rounded-md border overflow-hidden">
+      <div className="bg-secondary px-4 py-2 text-sm font-medium">{language}</div>
       <textarea
+        ref={textareaRef}
         value={code}
-        onChange={handleChange}
-        readOnly={readOnly}
-        className={`w-full min-h-[200px] p-4 font-mono text-sm focus:outline-none ${
-          readOnly ? "bg-gray-50" : "bg-white"
-        }`}
+        onChange={(e) => onChange && onChange(e.target.value)}
+        className="w-full p-4 font-mono text-sm focus:outline-none bg-white"
         placeholder={`Enter your ${language} code here...`}
         spellCheck="false"
       />
