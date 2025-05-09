@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 interface CodeEditorProps {
   code: string;
   language: string;
@@ -25,7 +24,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, onChange, readO
     return (
       <div className="rounded-md border overflow-hidden">
         <div className="bg-secondary px-4 py-2 text-sm font-medium">{language}</div>
-        <SyntaxHighlighter language={language.toLowerCase()} style={oneDark} customStyle={{ margin: 0, padding: '1rem' }}>
+        <SyntaxHighlighter language={language.toLowerCase()} style={oneLight} customStyle={{ margin: 0, padding: '1rem' }}>
           {code}
         </SyntaxHighlighter>
       </div>
