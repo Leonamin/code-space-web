@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { api, CodeSpace } from "@/services/api";
@@ -5,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { DeleteDialog } from "./codePiece/DeleteDialog";
 import { CardActions } from "./codeSpace/CardActions";
+import MarkdownViewer from "./MarkdownViewer";
 
 interface CodeSpaceCardProps {
   codeSpace: CodeSpace;
@@ -64,9 +66,18 @@ const CodeSpaceCard: React.FC<CodeSpaceCardProps> = ({
           />
         </CardHeader>
         <CardContent className="pb-2">
-          <p className="line-clamp-3 text-sm text-gray-600">
-            {description || "No description provided"}
-          </p>
+          {description ? (
+            <div className="line-clamp-3">
+              <MarkdownViewer 
+                content={description} 
+                truncate={true} 
+                maxLength={100}
+                className="prose-sm text-gray-600"
+              />
+            </div>
+          ) : (
+            <p className="text-sm text-gray-600">No description provided</p>
+          )}
         </CardContent>
         <CardFooter className="flex justify-between pt-0 text-xs text-gray-500">
           <span>By {owner_name}</span>

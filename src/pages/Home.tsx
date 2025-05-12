@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -36,10 +37,6 @@ const Home: React.FC = () => {
 
     const codeSpaces: CodeSpace[] = data?.pages.flat() ?? [];
 
-    const handleCardClick = (id: number) => {
-        navigate(`/spaces/${id}`);
-    };
-
     const handleCreateCodeSpace = () => {
         navigate("/spaces/create");
     };
@@ -63,7 +60,6 @@ const Home: React.FC = () => {
                     <CodeSpaceCard
                         key={codeSpace.id}
                         codeSpace={codeSpace}
-                        onClick={() => handleCardClick(codeSpace.id)}
                         onDeleted={handleCodeSpaceDeleted}
                     />
                 ))}

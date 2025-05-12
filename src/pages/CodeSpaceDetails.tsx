@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -10,6 +11,7 @@ import { toast } from "sonner";
 import { DeleteDialog } from "@/components/codePiece/DeleteDialog";
 import { Button } from "@/components/ui/button";
 import MarkdownViewer from "@/components/MarkdownViewer";
+import { Card } from "@/components/ui/card";
 
 const CodeSpaceDetails: React.FC = () => {
     const navigate = useNavigate();
@@ -102,24 +104,36 @@ const CodeSpaceDetails: React.FC = () => {
     return (
         <>
             <div className="container mx-auto px-4 py-8">
-                <div className="mb-8">
-                    <div className="flex items-center justify-between">
-                        {codeSpaceDetails?.name && <h1 className="text-3xl font-bold text-primary mb-2">
-                            {codeSpaceDetails?.name}
-                        </h1>}
-                        <div className="flex items-center gap-2">
-                            <Button variant="outline" onClick={handleSpaceEdit}>수정</Button>
-                            <Button variant="destructive" onClick={handleSpaceDelete}>삭제</Button>
+                {codeSpaceDetails && (
+                    <Card className="p-6 mb-8 bg-white shadow-sm">
+                        <div className="flex items-center justify-between mb-4">
+                            <h1 className="text-3xl font-bold text-primary">
+                                {codeSpaceDetails.name}
+                            </h1>
+                            <div className="flex items-center gap-2">
+                                <Button variant="outline" onClick={handleSpaceEdit}>수정</Button>
+                                <Button variant="destructive" onClick={handleSpaceDelete}>삭제</Button>
+                            </div>
                         </div>
-                    </div>
-                    {
-                        codeSpaceDetails?.description &&
-                        <MarkdownViewer content={codeSpaceDetails?.description} />
-                    }
-                    {codeSpaceDetails?.owner_name && (
-                        <p className="text-sm text-gray-500 mt-2">Created by {codeSpaceDetails.owner_name}</p>
-                    )}
-                </div>
+                        
+                        {codeSpaceDetails.description && (
+                            <div className="mt-4 mb-2">
+                                <MarkdownViewer 
+                                    content={codeSpaceDetails.description} 
+                                    className="text-gray-700"
+                                />
+                            </div>
+                        )}
+
+                        {codeSpaceDetails.owner_name && (
+                            <p className="text-sm text-gray-500 mt-4">
+                                Created by {codeSpaceDetails.owner_name}
+                            </p>
+                        )}
+                    </Card>
+                )}
+
+                <h2 className="text-xl font-semibold text-primary mb-4">Code Pieces</h2>
 
                 <InfiniteScroll
                     loadMore={fetchNextPage}
