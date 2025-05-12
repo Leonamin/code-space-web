@@ -1,12 +1,12 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
-import {useInfiniteQuery} from "@tanstack/react-query";
-import {Plus} from "lucide-react";
-import {api, CodeSpace} from "@/services/api";
+import { useNavigate } from "react-router-dom";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
+import { api, CodeSpace } from "@/services/api";
 import CodeSpaceCard from "@/components/CodeSpaceCard";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import InfiniteScroll from "@/components/InfiniteScroll";
-import {toast} from "sonner";
+import { toast } from "sonner";
 import Logo from '@/components/Logo'
 
 const Home: React.FC = () => {
@@ -18,9 +18,10 @@ const Home: React.FC = () => {
         hasNextPage,
         isFetchingNextPage,
         isLoading,
+        refetch,
     } = useInfiniteQuery({
         queryKey: ["codeSpaces"],
-        queryFn: ({pageParam = 0}) => api.getCodeSpaces(pageParam as number),
+        queryFn: ({ pageParam = 0 }) => api.getCodeSpaces(pageParam as number),
         getNextPageParam: (lastPage, allPages) =>
             lastPage.length === 0 ? undefined : allPages.length,
         initialPageParam: 0,
@@ -43,10 +44,14 @@ const Home: React.FC = () => {
         navigate("/spaces/create");
     };
 
+    const handleCodeSpaceDeleted = () => {
+        refetch();
+    };
+
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex justify-center mb-8">
-                <Logo size="128"/>
+                <Logo size="128" />
             </div>
             <InfiniteScroll
                 loadMore={fetchNextPage}
@@ -59,6 +64,7 @@ const Home: React.FC = () => {
                         key={codeSpace.id}
                         codeSpace={codeSpace}
                         onClick={() => handleCardClick(codeSpace.id)}
+                        onDeleted={handleCodeSpaceDeleted}
                     />
                 ))}
             </InfiniteScroll>
@@ -71,7 +77,7 @@ const Home: React.FC = () => {
             )}
 
             <FloatingActionButton
-                icon={<Plus size={24}/>}
+                icon={<Plus size={24} />}
                 onClick={handleCreateCodeSpace}
                 label="생성"
             />

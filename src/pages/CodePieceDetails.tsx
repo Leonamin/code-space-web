@@ -147,12 +147,13 @@ const CodePieceDetails: React.FC = () => {
                     </div>
                 </div>
             </div>
-            
+
             <DeleteDialog
                 isOpen={showDeleteDialog}
                 onClose={() => setShowDeleteDialog(false)}
                 onConfirm={handleDeleteConfirm}
-                pieceName={codePiece.name}
+                title="코드 피스 삭제 확인"
+                description={`'${codePiece.name}' 코드 피스를 삭제하려면 비밀번호를 입력해주세요.`}
             />
         </>
     );

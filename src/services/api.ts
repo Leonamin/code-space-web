@@ -1,4 +1,3 @@
-
 import { toast } from "sonner";
 
 export interface CodeSpace {
@@ -30,6 +29,13 @@ export interface CreateCodeSpaceRequest {
   password: string;
   owner_name: string;
   description?: string;
+}
+
+export interface UpdateCodeSpaceRequest {
+  name?: string;
+  description?: string;
+  password: string;
+  owner_name?: string;
 }
 
 export interface CreateCodePieceRequest {
@@ -68,7 +74,9 @@ async function handleRequest<T>(
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(errorText || `Request failed with status ${response.status}`);
+      throw new Error(
+        errorText || `Request failed with status ${response.status}`
+      );
     }
 
     // Some endpoints might not return anything
@@ -78,7 +86,9 @@ async function handleRequest<T>(
 
     return await response.json();
   } catch (error) {
-    toast.error(error instanceof Error ? error.message : "An unknown error occurred");
+    toast.error(
+      error instanceof Error ? error.message : "An unknown error occurred"
+    );
     throw error;
   }
 }
@@ -86,11 +96,15 @@ async function handleRequest<T>(
 export const api = {
   // CodeSpace endpoints
   getCodeSpaces: async (page: number = 0): Promise<CodeSpace[]> => {
-    return handleRequest<CodeSpace[]>(`${API_BASE_URL}/api/codespaces?page=${page}`);
+    return handleRequest<CodeSpace[]>(
+      `${API_BASE_URL}/api/codespaces?page=${page}`
+    );
   },
 
   getCodeSpaceDetail: async (spaceId: number): Promise<CodeSpace> => {
-    return handleRequest<CodeSpace>(`${API_BASE_URL}/api/codespaces/${spaceId}`);
+    return handleRequest<CodeSpace>(
+      `${API_BASE_URL}/api/codespaces/${spaceId}`
+    );
   },
 
   createCodeSpace: async (data: CreateCodeSpaceRequest): Promise<void> => {
@@ -110,21 +124,27 @@ export const api = {
     });
   },
 
-  deleteCodeSpace: async (spaceId: number): Promise<void> => {
+  deleteCodeSpace: async (spaceId: number, password: string): Promise<void> => {
     return handleRequest<void>(`${API_BASE_URL}/api/codespaces/${spaceId}`, {
       method: "DELETE",
+      body: JSON.stringify({ password }),
     });
   },
 
   // CodePiece endpoints
-  getCodePieces: async (spaceId: number, page: number = 0): Promise<CodePieceSummary[]> => {
+  getCodePieces: async (
+    spaceId: number,
+    page: number = 0
+  ): Promise<CodePieceSummary[]> => {
     return handleRequest<CodePieceSummary[]>(
       `${API_BASE_URL}/api/codepieces?page=${page}&space_id=${spaceId}`
     );
   },
 
   getCodePieceDetail: async (pieceId: number): Promise<CodePieceDetail> => {
-    return handleRequest<CodePieceDetail>(`${API_BASE_URL}/api/codepieces/${pieceId}`);
+    return handleRequest<CodePieceDetail>(
+      `${API_BASE_URL}/api/codepieces/${pieceId}`
+    );
   },
 
   createCodePiece: async (data: CreateCodePieceRequest): Promise<void> => {

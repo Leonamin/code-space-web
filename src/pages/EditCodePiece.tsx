@@ -98,7 +98,7 @@ const EditCodePiece: React.FC = () => {
       const isOtherLanguage = !LANGUAGES.some(
         (lang) => lang.toLowerCase() === codePiece.language.toLowerCase()
       );
-      
+
       form.reset({
         name: codePiece.name,
         description: codePiece.description || "",
@@ -113,7 +113,7 @@ const EditCodePiece: React.FC = () => {
   }, [codePiece, form]);
 
   const updateCodePieceMutation = useMutation({
-    mutationFn: (data: any) => 
+    mutationFn: (data: any) =>
       api.updateCodePiece(Number(pieceId), data),
     onSuccess: () => {
       toast.success("코드 피스가 수정되었습니다");
@@ -130,10 +130,10 @@ const EditCodePiece: React.FC = () => {
 
   const onSubmit = (data: FormValues) => {
     if (!codePiece) return;
-    
-    const finalLanguage = 
+
+    const finalLanguage =
       data.language === "Other" ? data.custom_language || codePiece.language : data.language;
-    
+
     const requestData: any = {
       password: data.password,
     };
@@ -146,7 +146,7 @@ const EditCodePiece: React.FC = () => {
     if (data.owner_name && data.owner_name !== codePiece.owner_name) {
       requestData.owner_name = data.owner_name;
     }
-    
+
     updateCodePieceMutation.mutate(requestData);
   };
 
@@ -160,9 +160,9 @@ const EditCodePiece: React.FC = () => {
 
   return (
     <div className="container max-w-4xl mx-auto px-4 py-8">
-      <Button 
-        onClick={() => navigate(-1)} 
-        variant="ghost" 
+      <Button
+        onClick={() => navigate(-1)}
+        variant="ghost"
         className="flex items-center gap-2 mb-4"
       >
         <ChevronLeft size={16} /> 뒤로가기
@@ -171,7 +171,7 @@ const EditCodePiece: React.FC = () => {
       <h1 className="text-2xl font-bold mb-6 text-primary text-center">
         코드 피스 수정
       </h1>
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -188,7 +188,7 @@ const EditCodePiece: React.FC = () => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="owner_name"
@@ -203,7 +203,7 @@ const EditCodePiece: React.FC = () => {
               )}
             />
           </div>
-          
+
           <FormField
             control={form.control}
             name="description"
@@ -217,7 +217,7 @@ const EditCodePiece: React.FC = () => {
               </FormItem>
             )}
           />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
@@ -249,7 +249,7 @@ const EditCodePiece: React.FC = () => {
                 </FormItem>
               )}
             />
-            
+
             {showCustomLanguage && (
               <FormField
                 control={form.control}
@@ -266,7 +266,7 @@ const EditCodePiece: React.FC = () => {
               />
             )}
           </div>
-          
+
           <FormField
             control={form.control}
             name="code"
@@ -290,7 +290,7 @@ const EditCodePiece: React.FC = () => {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="password"
@@ -304,11 +304,11 @@ const EditCodePiece: React.FC = () => {
               </FormItem>
             )}
           />
-          
+
           <div className="flex space-x-4 justify-end pt-4">
-            <Button 
-              type="button" 
-              variant="outline" 
+            <Button
+              type="button"
+              variant="outline"
               onClick={() => navigate(-1)}
             >
               취소
@@ -327,7 +327,7 @@ const EditCodePiece: React.FC = () => {
               disabled={updateCodePieceMutation.isPending}
               onClick={() => setReturnToDetails(true)}
             >
-              수정 후 상세보기
+              {updateCodePieceMutation.isPending ? "수정 중..." : "수정 후 상세보기"}
             </Button>
           </div>
         </form>

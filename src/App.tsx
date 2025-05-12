@@ -14,6 +14,7 @@ import EditCodePiece from "@/pages/EditCodePiece";
 import CodePieceDetails from "@/pages/CodePieceDetails";
 import ComparePieces from "@/pages/ComparePieces";
 import NotFound from "@/pages/NotFound";
+import EditCodeSpace from "@/pages/EditCodeSpace";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/spaces/create" element={<CreateCodeSpace />} />
               <Route path="/spaces/:spaceId" element={<CodeSpaceDetails />} />
+              <Route path="/spaces/:spaceId/edit" element={<EditCodeSpace />} />
               <Route path="/spaces/:spaceId/pieces/create" element={<CreateCodePiece />} />
               <Route path="/pieces/:pieceId" element={<CodePieceDetails />} />
               <Route path="/pieces/:pieceId/edit" element={<EditCodePiece />} />

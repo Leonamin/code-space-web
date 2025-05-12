@@ -93,7 +93,7 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
       >
         <CardHeader className="flex flex-row items-center justify-between pb-2 relative">
           <CardTitle className="text-lg font-bold text-primary">{name}</CardTitle>
-          <CardActions 
+          <CardActions
             onViewDetails={handleViewDetails}
             onEdit={handleEdit}
             onDelete={handleDelete}
@@ -114,11 +114,12 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
         </CardFooter>
       </Card>
 
-      <DeleteDialog 
+      <DeleteDialog
         isOpen={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
         onConfirm={handleDeleteConfirm}
-        pieceName={name}
+        title="코드 피스 삭제 확인"
+        description={`'${name}' 코드 피스를 삭제하려면 비밀번호를 입력해주세요.`}
       />
     </>
   );

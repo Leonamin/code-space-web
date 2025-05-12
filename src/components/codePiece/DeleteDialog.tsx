@@ -12,17 +12,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface DeleteDialogProps {
+  title: string;
+  description: string;
   isOpen: boolean;
   onClose: () => void;
   onConfirm: (password: string) => Promise<void>;
-  pieceName: string;
 }
 
-export const DeleteDialog: React.FC<DeleteDialogProps> = ({ 
-  isOpen, 
-  onClose, 
+export const DeleteDialog: React.FC<DeleteDialogProps> = ({
+  title,
+  description,
+  isOpen,
+  onClose,
   onConfirm,
-  pieceName 
 }) => {
   const [password, setPassword] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -43,9 +45,9 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>코드 피스 삭제 확인</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
-            '{pieceName}' 코드 피스를 삭제하려면 비밀번호를 입력해주세요.
+            {description}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
