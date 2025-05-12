@@ -1,11 +1,5 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useMutation } from "@tanstack/react-query";
-import { api, CreateCodeSpaceRequest } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,116 +11,137 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
+import { useToast } from "@/components/ui/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { api } from "@/services/api";
 
-// Validation schema
 const formSchema = z.object({
-  name: z.string().min(1, "이름은 필수 항목입니다."),
+  name: z.string().min(2, {
+    message: "CodeSpace 이름은 2글자 이상이어야 합니다.",
+  }),
   description: z.string().optional(),
-  owner_name: z.string().min(1, "작성자는 필수항목입니다."),
-  password: z.string().min(4, "비밀번호는 최소 4자리 이상이어야합니다."),
+  password: z.string().optional(),
+  owner_name: z.string().optional(),
 });
-
-type FormValues = z.infer<typeof formSchema>;
 
 const CreateCodeSpace: React.FC = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isCreating, setIsCreating] = useState(false);
 
-  const form = useForm<FormValues>({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
-      owner_name: "",
       password: "",
+      owner_name: "",
     },
   });
 
-  const createCodeSpaceMutation = useMutation({
-    mutationFn: (data: CreateCodeSpaceRequest) => api.createCodeSpace(data),
-    onSuccess: () => {
-      toast.success("코드스페이스 생성 성공!");
-      navigate("/");
-    },
-    onError: () => {
-      toast.error("코드스페이스 생성 실패");
-    },
-  });
-
-  const onSubmit = (data: FormValues) => {
-    createCodeSpaceMutation.mutate(data);
-  };
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsCreating(true);
+    try {
+      if (values.name) {
+        await api.createCodeSpace({
+          name: values.name,
+          description: values.description || "",
+          password: values.password || "",
+          owner_name: values.owner_name || "",
+        });
+        toast({
+          title: "CodeSpace 생성 완료",
+          description: "CodeSpace가 성공적으로 생성되었습니다.",
+        });
+        navigate("/");
+      } else {
+        toast({
+          title: "CodeSpace 생성 실패",
+          description: "CodeSpace 이름을 입력해주세요.",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "CodeSpace 생성 실패",
+        description: "CodeSpace 생성 중 오류가 발생했습니다.",
+      });
+    } finally {
+      setIsCreating(false);
+    }
+  }
 
   return (
-    <div className="container max-w-xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6 text-primary text-center">새로운 코드스페이스 생성</h1>
-      
+    <div className="container mx-auto py-8">
+      <h1 className="text-2xl font-bold mb-4">Create CodeSpace</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 max-w-lg"
+        >
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>이름</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="코드스페이스" {...field} />
+                  <Input placeholder="CodeSpace 이름을 입력하세요" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
           <FormField
             control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>설명 (선택)</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="코드 스페이스 설명" {...field} />
+                  <Textarea
+                    placeholder="CodeSpace에 대한 설명을 입력하세요"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
-          <FormField
-            control={form.control}
-            name="owner_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>작성자</FormLabel>
-                <FormControl>
-                  <Input placeholder="햄스터" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>비밀번호</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Password" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="CodeSpace 비밀번호를 입력하세요"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
-          <div className="flex space-x-4 justify-end pt-4">
-            <Button type="button" variant="outline" onClick={() => navigate("/")}>
-              취소
-            </Button>
-            <Button type="submit" className="bg-primary" disabled={createCodeSpaceMutation.isPending}>
-              {createCodeSpaceMutation.isPending ? "생성중" : "코드스페이스 생성"}
-            </Button>
-          </div>
+          <FormField
+            control={form.control}
+            name="owner_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Owner Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="소유자 이름을 입력하세요" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" disabled={isCreating}>
+            {isCreating ? "Creating..." : "Create CodeSpace"}
+          </Button>
         </form>
       </Form>
     </div>
