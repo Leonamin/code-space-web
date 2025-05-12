@@ -110,10 +110,10 @@ const ComparePieces: React.FC = () => {
           </Button>
         </div>
         <p className="text-sm mb-2">
-          <span className="font-medium">Author:</span> {piece.owner_name}
+          <span className="font-medium">작성자:</span> {piece.owner_name}
         </p>
         <p className="text-sm mb-4">
-          <span className="font-medium">Language:</span> {piece.language}
+          <span className="font-medium">언어:</span> {piece.language}
         </p>
         <CodeEditor code={piece.code} language={piece.language} readOnly />
       </div>
