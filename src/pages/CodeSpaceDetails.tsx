@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import {Plus, Code} from "lucide-react";
-import {api, CodePieceSummary, CodeSpace} from "@/services/api";
+import {api, CodePieceSummary} from "@/services/api";
 import CodePieceCard from "@/components/CodePieceCard";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import InfiniteScroll from "@/components/InfiniteScroll";
