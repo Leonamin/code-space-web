@@ -9,6 +9,7 @@ import InfiniteScroll from "@/components/InfiniteScroll";
 import { toast } from "sonner";
 import { DeleteDialog } from "@/components/codePiece/DeleteDialog";
 import { Button } from "@/components/ui/button";
+import MarkdownViewer from "@/components/MarkdownViewer";
 
 const CodeSpaceDetails: React.FC = () => {
     const navigate = useNavigate();
@@ -113,9 +114,7 @@ const CodeSpaceDetails: React.FC = () => {
                     </div>
                     {
                         codeSpaceDetails?.description &&
-                        <p className="text-gray-600">
-                            {codeSpaceDetails?.description}
-                        </p>
+                        <MarkdownViewer content={codeSpaceDetails?.description} />
                     }
                     {codeSpaceDetails?.owner_name && (
                         <p className="text-sm text-gray-500 mt-2">Created by {codeSpaceDetails.owner_name}</p>
