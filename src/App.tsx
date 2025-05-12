@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import CreateCodeSpace from "@/pages/CreateCodeSpace";
 import CodeSpaceDetails from "@/pages/CodeSpaceDetails";
@@ -47,7 +46,6 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
-          <Footer />
         </div>
       </BrowserRouter>
     </TooltipProvider>
