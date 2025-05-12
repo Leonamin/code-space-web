@@ -12,6 +12,7 @@ import { DeleteDialog } from "@/components/codePiece/DeleteDialog";
 import { Button } from "@/components/ui/button";
 import MarkdownViewer from "@/components/MarkdownViewer";
 import { Card } from "@/components/ui/card";
+import Logo from "@/components/Logo";
 
 const CodeSpaceDetails: React.FC = () => {
     const navigate = useNavigate();
@@ -115,11 +116,11 @@ const CodeSpaceDetails: React.FC = () => {
                                 <Button variant="destructive" onClick={handleSpaceDelete}>삭제</Button>
                             </div>
                         </div>
-                        
+
                         {codeSpaceDetails.description && (
                             <div className="mt-4 mb-2">
-                                <MarkdownViewer 
-                                    content={codeSpaceDetails.description} 
+                                <MarkdownViewer
+                                    content={codeSpaceDetails.description}
                                     className="text-gray-700"
                                 />
                             </div>
@@ -155,9 +156,14 @@ const CodeSpaceDetails: React.FC = () => {
 
                 {
                     codePieces.length === 0 && !isLoading && (
-                        <div className="flex flex-col items-center justify-center p-8">
-                            <p className="text-gray-500 mb-4">코드 피스가 없습니다.</p>
-                            <p className="text-gray-500">첫번째 코드 피스를 만들어보세요!</p>
+                        <div className="flex flex-col items-center justify-center">
+                            <div className="flex justify-center mb-8">
+                                <Logo size="128" />
+                            </div>
+                            <div className="flex flex-col items-center justify-center p-8">
+                                <p className="text-gray-500 mb-4">코드 피스가 없습니다.</p>
+                                <p className="text-gray-500">첫번째 코드 피스를 만들어보세요!</p>
+                            </div>
                         </div>
                     )
                 }

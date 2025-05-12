@@ -47,9 +47,6 @@ const Home: React.FC = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="flex justify-center mb-8">
-                <Logo size="128" />
-            </div>
             <InfiniteScroll
                 loadMore={fetchNextPage}
                 hasMore={hasNextPage ?? false}
@@ -66,9 +63,14 @@ const Home: React.FC = () => {
             </InfiniteScroll>
 
             {codeSpaces.length === 0 && !isLoading && (
-                <div className="flex flex-col items-center justify-center p-8">
-                    <p className="text-gray-500 mb-4">코드 스페이스가 없습니다.</p>
-                    <p className="text-gray-500">첫번째 코드 스페이스를 만들어보세요!</p>
+                <div className="flex flex-col items-center justify-center">
+                    <div className="flex justify-center mb-8">
+                        <Logo size="128" />
+                    </div>
+                    <div className="flex flex-col items-center justify-center p-8">
+                        <p className="text-gray-500 mb-4">코드 스페이스가 없습니다.</p>
+                        <p className="text-gray-500">첫번째 코드 스페이스를 만들어보세요!</p>
+                    </div>
                 </div>
             )}
 
