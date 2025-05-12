@@ -15,6 +15,7 @@ import CodePieceDetails from "@/pages/CodePieceDetails";
 import ComparePieces from "@/pages/ComparePieces";
 import NotFound from "@/pages/NotFound";
 import EditCodeSpace from "@/pages/EditCodeSpace";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,8 @@ const App = () => (
           </main>
         </div>
       </BrowserRouter>
+      <Footer />
+
     </TooltipProvider>
   </QueryClientProvider>
 );

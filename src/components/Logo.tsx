@@ -1,9 +1,12 @@
-const Logo: React.FC = ({size}: {
-    size?: string
-}) => {
-    return (
-        <img src="/logo.png" alt="logo" width={size}/>
-    )
+
+import React from "react";
+
+interface LogoProps {
+    size?: string;
 }
 
-export default Logo
+const Logo: React.FC<LogoProps> = ({ size = "24" }) => {
+    return <img src="/logo.png" alt="logo" width={size} />;
+};
+
+export default Logo;
