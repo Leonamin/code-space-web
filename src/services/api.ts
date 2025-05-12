@@ -89,6 +89,10 @@ export const api = {
     return handleRequest<CodeSpace[]>(`${API_BASE_URL}/api/codespaces?page=${page}`);
   },
 
+  getCodeSpaceDetail: async (spaceId: number): Promise<CodeSpace> => {
+    return handleRequest<CodeSpace>(`${API_BASE_URL}/api/codespaces/${spaceId}`);
+  },
+
   createCodeSpace: async (data: CreateCodeSpaceRequest): Promise<void> => {
     return handleRequest<void>(`${API_BASE_URL}/api/codespaces`, {
       method: "POST",

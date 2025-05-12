@@ -1,27 +1,22 @@
-
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { Plus, Code } from "lucide-react";
-import { api, CodePieceSummary, CodeSpace } from "@/services/api";
+import React, {useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
+import {Plus, Code} from "lucide-react";
+import {api, CodePieceSummary, CodeSpace} from "@/services/api";
 import CodePieceCard from "@/components/CodePieceCard";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import InfiniteScroll from "@/components/InfiniteScroll";
-import { toast } from "sonner";
+import {toast} from "sonner";
 
 const CodeSpaceDetails: React.FC = () => {
     const navigate = useNavigate();
-    const { spaceId } = useParams<{ spaceId: string }>();
+    const {spaceId} = useParams<{ spaceId: string }>();
     const [selectedPieces, setSelectedPieces] = useState<number[]>([]);
 
     // Fetch CodeSpace details
-    const { data: codeSpaceDetails } = useQuery({
+    const {data: codeSpaceDetails} = useQuery({
         queryKey: ["codeSpace", spaceId],
-        queryFn: () => {
-            // Normally we'd fetch the CodeSpace details by ID, but the API doesn't support it
-            // Instead, we'll show a basic UI and rely on the CodePiece list
-            return Promise.resolve({} as CodeSpace);
-        },
+        queryFn: async () => api.getCodeSpaceDetail(spaceId as number),
     });
 
     const {
@@ -33,7 +28,7 @@ const CodeSpaceDetails: React.FC = () => {
         refetch,
     } = useInfiniteQuery({
         queryKey: ["codePieces", spaceId],
-        queryFn: ({ pageParam = 0 }) =>
+        queryFn: ({pageParam = 0}) =>
             api.getCodePieces(Number(spaceId), pageParam as number),
         getNextPageParam: (lastPage, allPages) =>
             lastPage.length === 0 ? undefined : allPages.length,

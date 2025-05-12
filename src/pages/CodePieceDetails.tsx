@@ -19,7 +19,7 @@ const CodePieceDetails: React.FC = () => {
         meta: {
             onSettled: (_, error) => {
                 if (error) {
-                    toast.error("Failed to load code piece");
+                    toast.error("코드 피스 불러오기 실패!");
                 }
             },
         },
@@ -81,7 +81,7 @@ const CodePieceDetails: React.FC = () => {
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-2xl font-bold mb-4 text-primary">Code Piece Not Found</h1>
                 <Button onClick={handleBack} className="flex items-center gap-2">
-                    <ChevronLeft size={16} /> Go Back
+                    <ChevronLeft size={16} /> 뒤로가기
                 </Button>
             </div>
         );
@@ -95,7 +95,7 @@ const CodePieceDetails: React.FC = () => {
                     variant="ghost"
                     className="flex items-center gap-2 mb-4"
                 >
-                    <ChevronLeft size={16} /> Go Back
+                    <ChevronLeft size={16} /> 뒤로가기
                 </Button>
 
                 <div className="bg-white rounded-lg shadow-md p-6 animate-fade-in mb-8">
@@ -120,25 +120,25 @@ const CodePieceDetails: React.FC = () => {
 
                     <div className="flex flex-wrap gap-4 mb-4">
                         <div className="bg-secondary/50 px-3 py-1 rounded-md text-sm">
-                            <span className="font-medium">Language:</span> {codePiece.language}
+                            <span className="font-medium">언어:</span> {codePiece.language}
                         </div>
                         <div className="bg-secondary/50 px-3 py-1 rounded-md text-sm">
-                            <span className="font-medium">Author:</span> {codePiece.owner_name}
+                            <span className="font-medium">작성자:</span> {codePiece.owner_name}
                         </div>
                         <div className="bg-secondary/50 px-3 py-1 rounded-md text-sm">
-                            <span className="font-medium">Created:</span> {formatDate(codePiece.created_at)}
+                            <span className="font-medium">시간:</span> {formatDate(codePiece.created_at)}
                         </div>
                     </div>
 
                     {codePiece.description && (
                         <div className="mb-6">
-                            <h2 className="text-lg font-medium mb-2">Description</h2>
+                            <h2 className="text-lg font-medium mb-2">설명</h2>
                             <p className="text-gray-700">{codePiece.description}</p>
                         </div>
                     )}
 
                     <div>
-                        <h2 className="text-lg font-medium mb-2">Code</h2>
+                        <h2 className="text-lg font-medium mb-2">코드</h2>
                         <CodeEditor
                             code={codePiece.code}
                             language={codePiece.language}

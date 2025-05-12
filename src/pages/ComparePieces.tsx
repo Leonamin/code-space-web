@@ -106,7 +106,7 @@ const ComparePieces: React.FC = () => {
               className="flex items-center gap-1"
           >
             <Info size={16} />
-            <span>Details</span>
+            <span>자세히</span>
           </Button>
         </div>
         <p className="text-sm mb-2">
@@ -122,10 +122,10 @@ const ComparePieces: React.FC = () => {
   return (
       <div className="container mx-auto px-4 py-8">
         <Button onClick={handleBack} variant="ghost" className="flex items-center gap-2 mb-4">
-          <ChevronLeft size={16} /> Go Back
+          <ChevronLeft size={16} /> 뒤로가기
         </Button>
 
-        <h1 className="text-2xl font-bold mb-6 text-primary">Compare Code Pieces</h1>
+        <h1 className="text-2xl font-bold mb-6 text-primary">코드 비교</h1>
 
         {layout === "tabs" && (
             <Tabs defaultValue="0" value={activeTab} onValueChange={setActiveTab}>
@@ -172,13 +172,13 @@ const ComparePieces: React.FC = () => {
             </DialogHeader>
             <div className="mt-4">
               <div className="text-sm mb-2">
-                <span className="font-medium">Author:</span> {selectedPieceForDescription?.owner_name}
+                <span className="font-medium">작성자:</span> {selectedPieceForDescription?.owner_name}
               </div>
               <div className="text-sm mb-2">
-                <span className="font-medium">Language:</span> {selectedPieceForDescription?.language}
+                <span className="font-medium">언어:</span> {selectedPieceForDescription?.language}
               </div>
               <div className="text-sm">
-                <span className="font-medium">Created:</span>{" "}
+                <span className="font-medium">시간:</span>{" "}
                 {new Date(selectedPieceForDescription?.created_at || "").toLocaleString()}
               </div>
             </div>
