@@ -47,13 +47,13 @@ const LANGUAGES = [
 
 // Validation schema
 const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "이름은 필수 항목입니다."),
   description: z.string().optional(),
-  language: z.string().min(1, "Language is required"),
+  language: z.string().min(1, "언어는 필수 항목입니다."),
   custom_language: z.string().optional(),
-  code: z.string().min(1, "Code is required"),
-  owner_name: z.string().min(1, "Owner name is required"),
-  password: z.string().min(1, "Password is required"),
+  code: z.string().min(1, "코드는 필수 항목입니다."),
+  owner_name: z.string().min(1, "작성자는 필수 항목입니다."),
+  password: z.string().min(4, "비밀번호는 최소 4자리 이상이어야합니다."),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -117,9 +117,9 @@ const CreateCodePiece: React.FC = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>이름</FormLabel>
                   <FormControl>
-                    <Input placeholder="My Code Piece" {...field} />
+                    <Input placeholder="바움쿠헨" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -131,9 +131,9 @@ const CreateCodePiece: React.FC = () => {
               name="owner_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Owner Name</FormLabel>
+                  <FormLabel>작성자</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your name" {...field} />
+                    <Input placeholder="드워프 햄스터" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -146,9 +146,9 @@ const CreateCodePiece: React.FC = () => {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description (Optional)</FormLabel>
+                <FormLabel>설명 (선택)</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Describe your code piece..." {...field} />
+                  <Textarea placeholder="햄스터는 살아있는 밀웜을 좋아해요" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -161,7 +161,7 @@ const CreateCodePiece: React.FC = () => {
               name="language"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Language</FormLabel>
+                  <FormLabel>언어</FormLabel>
                   <Select
                     onValueChange={(value) => {
                       field.onChange(value);
@@ -171,7 +171,7 @@ const CreateCodePiece: React.FC = () => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select language" />
+                        <SelectValue placeholder="언어 선택" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -193,9 +193,9 @@ const CreateCodePiece: React.FC = () => {
                 name="custom_language"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Custom Language</FormLabel>
+                    <FormLabel>기타 언어</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter language name" {...field} />
+                      <Input placeholder="언어 입력" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -208,9 +208,9 @@ const CreateCodePiece: React.FC = () => {
               name="password"
               render={({ field }) => (
                 <FormItem className={showCustomLanguage ? "md:col-span-2" : ""}>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>비밀번호</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
+                    <Input type="password" placeholder="비밀번호" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -223,7 +223,7 @@ const CreateCodePiece: React.FC = () => {
             name="code"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Code</FormLabel>
+                <FormLabel>코드</FormLabel>
                 <FormControl>
                   <Controller
                     name="code"
@@ -231,7 +231,7 @@ const CreateCodePiece: React.FC = () => {
                     render={({ field }) => (
                       <CodeEditor
                         code={field.value}
-                        language={form.watch("language") || "text"}
+                        language={form.watch("language") || "plain text"}
                         onChange={field.onChange}
                       />
                     )}
@@ -248,14 +248,14 @@ const CreateCodePiece: React.FC = () => {
               variant="outline" 
               onClick={() => navigate(`/spaces/${spaceId}`)}
             >
-              Cancel
+              취소
             </Button>
             <Button 
               type="submit" 
               className="bg-primary" 
               disabled={createCodePieceMutation.isPending}
             >
-              {createCodePieceMutation.isPending ? "Creating..." : "Create Code Piece"}
+              {createCodePieceMutation.isPending ? "생성중..." : "생성하기"}
             </Button>
           </div>
         </form>

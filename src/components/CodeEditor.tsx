@@ -40,7 +40,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, onChange, readO
         value={code}
         onChange={(e) => onChange && onChange(e.target.value)}
         className="w-full p-4 font-mono text-sm focus:outline-none bg-white"
-        placeholder={`Enter your ${language} code here...`}
+        placeholder={`뭐라도 입력해보세요`}
         spellCheck="false"
       />
     </div>
