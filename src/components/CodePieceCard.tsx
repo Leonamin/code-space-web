@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CodePieceSummary } from "@/services/api";
@@ -8,6 +7,7 @@ import { toast } from "sonner";
 import { CardActions } from "./codePiece/CardActions";
 import { DeleteDialog } from "./codePiece/DeleteDialog";
 import { useNavigate } from "react-router-dom";
+import PlainTextViewer from "./PlainTextViewer";
 
 interface CodePieceCardProps {
   codePiece: CodePieceSummary;
@@ -100,9 +100,13 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
           />
         </CardHeader>
         <CardContent className="pb-2">
-          <p className="line-clamp-2 text-sm text-gray-600 mb-2">
-            {description || "No description provided"}
-          </p>
+          <div className="line-clamp-2 text-sm text-gray-600 mb-2">
+            <PlainTextViewer 
+              content={description || "No description provided"}
+              maxLength={100}
+              maxLines={2}
+            />
+          </div>
           <div className="flex items-center mt-1">
             <span className={`text-xs px-2 py-1 rounded-full ${getLanguageColor(language)}`}>
               {language}
