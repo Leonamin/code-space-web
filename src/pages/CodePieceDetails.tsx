@@ -8,6 +8,7 @@ import CodeEditor from "@/components/CodeEditor";
 import { ChevronLeft, Edit, Trash } from "lucide-react";
 import { toast } from "sonner";
 import { DeleteDialog } from "@/components/codePiece/DeleteDialog";
+import MarkdownViewer from "@/components/MarkdownViewer";
 
 const CodePieceDetails: React.FC = () => {
     const { t } = useTranslation();
@@ -131,9 +132,11 @@ const CodePieceDetails: React.FC = () => {
                     </div>
 
                     {codePiece.description && (
-                        <div className="mb-6">
-                            <h2 className="text-lg font-medium mb-2">{t('codePiece.description')}</h2>
-                            <p className="text-gray-700">{codePiece.description}</p>
+                        <div className="mt-4 mb-2">
+                            <MarkdownViewer
+                                content={codePiece.description}
+                                className="text-gray-700"
+                            />
                         </div>
                     )}
 
