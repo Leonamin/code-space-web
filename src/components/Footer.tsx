@@ -1,7 +1,8 @@
 
 import React from "react";
-import { Github, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import Logo from "./Logo";
+import { SiGithub } from "@icons-pack/react-simple-icons";
 
 const Footer: React.FC = () => {
   return (
@@ -29,7 +30,7 @@ const Footer: React.FC = () => {
               className="flex items-center gap-2 hover:text-primary transition-colors"
               aria-label="GitHub"
             >
-              <Github size={20} />
+              <SiGithub size={20} />
               <span className="hidden sm:inline">github.com/Leonamin</span>
             </a>
           </div>
