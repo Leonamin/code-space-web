@@ -69,8 +69,8 @@ const CodeSpaceCard: React.FC<CodeSpaceCardProps> = ({
         <CardContent className="pb-2">
           {description ? (
             <div className="line-clamp-3">
-              <PlainTextViewer 
-                content={description} 
+              <PlainTextViewer
+                content={description}
                 maxLength={100}
                 maxLines={3}
                 className="text-gray-600"
@@ -81,7 +81,7 @@ const CodeSpaceCard: React.FC<CodeSpaceCardProps> = ({
           )}
         </CardContent>
         <CardFooter className="flex justify-between pt-0 text-xs text-gray-500">
-          <span>{t('common.by')} {owner_name}</span>
+          <span>{t('common.by', { author: owner_name })}</span>
           <span>{formatDate(codeSpace.created_at)}</span>
         </CardFooter>
       </Card>

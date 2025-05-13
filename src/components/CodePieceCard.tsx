@@ -103,7 +103,7 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
         </CardHeader>
         <CardContent className="pb-2">
           <div className="line-clamp-2 text-sm text-gray-600 mb-2">
-            <PlainTextViewer 
+            <PlainTextViewer
               content={description || t('common.noDescription')}
               maxLength={100}
               maxLines={2}
@@ -116,7 +116,7 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
           </div>
         </CardContent>
         <CardFooter className="pt-0 text-xs text-gray-500">
-          <span>{t('common.by')} {owner_name}</span>
+          <span>{t('common.by', { author: owner_name })}</span>
         </CardFooter>
       </Card>
 

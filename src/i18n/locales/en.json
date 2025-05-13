@@ -26,7 +26,8 @@
       "created": "Created successfully",
       "updated": "Updated successfully",
       "deleted": "Deleted successfully"
-    }
+    },
+    "by": "by {{author}}"
   },
   "codePiece": {
     "back": "Back",
