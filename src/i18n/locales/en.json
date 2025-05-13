@@ -16,6 +16,7 @@
     "code": "Code",
     "time": "Time",
     "noDescription": "No description provided",
+    "optional": "Optional",
     "errors": {
       "loadFailed": "Failed to load",
       "deleteFailed": "Delete failed. Please check your password.",

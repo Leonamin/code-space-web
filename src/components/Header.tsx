@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header: React.FC = () => {
     return (
@@ -11,7 +10,6 @@ const Header: React.FC = () => {
                     <Logo size="32" />
                     <span className="font-bold text-lg text-white">CodeSpace</span>
                 </Link>
-                <LanguageSwitcher />
             </div>
         </header>
     );

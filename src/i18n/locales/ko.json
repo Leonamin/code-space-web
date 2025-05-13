@@ -16,6 +16,7 @@
     "code": "코드",
     "time": "시간",
     "noDescription": "설명이 없습니다",
+    "optional": "선택",
     "errors": {
       "loadFailed": "불러오기 실패",
       "deleteFailed": "삭제에 실패했습니다. 비밀번호를 확인해주세요.",

@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/select";
 import CodeEditor from "@/components/CodeEditor";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 // Languages supported
 const LANGUAGES = [
@@ -59,6 +60,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const CreateCodePiece: React.FC = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const { spaceId } = useParams<{ spaceId: string }>();
   const [showCustomLanguage, setShowCustomLanguage] = useState(false);
@@ -89,7 +92,7 @@ const CreateCodePiece: React.FC = () => {
 
   const onSubmit = (data: FormValues) => {
     const finalLanguage = data.language === "Other" ? data.custom_language || "Other" : data.language;
-    
+
     const requestData: CreateCodePieceRequest = {
       space_id: Number(spaceId),
       name: data.name,
@@ -99,16 +102,16 @@ const CreateCodePiece: React.FC = () => {
       owner_name: data.owner_name,
       password: data.password,
     };
-    
+
     createCodePieceMutation.mutate(requestData);
   };
 
   return (
     <div className="container max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6 text-primary text-center">
-        Create New Code Piece
+        {t('codePiece.create.title')}
       </h1>
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -125,7 +128,7 @@ const CreateCodePiece: React.FC = () => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="owner_name"
@@ -140,7 +143,7 @@ const CreateCodePiece: React.FC = () => {
               )}
             />
           </div>
-          
+
           <FormField
             control={form.control}
             name="description"
@@ -154,7 +157,7 @@ const CreateCodePiece: React.FC = () => {
               </FormItem>
             )}
           />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
@@ -186,7 +189,7 @@ const CreateCodePiece: React.FC = () => {
                 </FormItem>
               )}
             />
-            
+
             {showCustomLanguage && (
               <FormField
                 control={form.control}
@@ -202,7 +205,7 @@ const CreateCodePiece: React.FC = () => {
                 )}
               />
             )}
-            
+
             <FormField
               control={form.control}
               name="password"
@@ -217,7 +220,7 @@ const CreateCodePiece: React.FC = () => {
               )}
             />
           </div>
-          
+
           <FormField
             control={form.control}
             name="code"
@@ -241,18 +244,18 @@ const CreateCodePiece: React.FC = () => {
               </FormItem>
             )}
           />
-          
+
           <div className="flex space-x-4 justify-end pt-4">
-            <Button 
-              type="button" 
-              variant="outline" 
+            <Button
+              type="button"
+              variant="outline"
               onClick={() => navigate(`/spaces/${spaceId}`)}
             >
               취소
             </Button>
-            <Button 
-              type="submit" 
-              className="bg-primary" 
+            <Button
+              type="submit"
+              className="bg-primary"
               disabled={createCodePieceMutation.isPending}
             >
               {createCodePieceMutation.isPending ? "생성중..." : "생성하기"}
