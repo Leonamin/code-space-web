@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { api, CodeSpace } from "@/services/api";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { DeleteDialog } from "./codePiece/DeleteDialog";
 import { CardActions } from "./codeSpace/CardActions";
@@ -17,6 +18,7 @@ const CodeSpaceCard: React.FC<CodeSpaceCardProps> = ({
   onDeleted,
 }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { id, name, description, owner_name } = codeSpace;
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
@@ -43,11 +45,11 @@ const CodeSpaceCard: React.FC<CodeSpaceCardProps> = ({
   const handleDeleteConfirm = async (password: string) => {
     try {
       await api.deleteCodeSpace(id, password);
-      toast.success("코드스페이스가 삭제되었습니다");
+      toast.success(t('common.success.deleted'));
       setShowDeleteDialog(false);
       if (onDeleted) onDeleted();
     } catch (error) {
-      toast.error("삭제에 실패했습니다. 비밀번호를 확인해주세요.");
+      toast.error(t('common.errors.deleteFailed'));
     }
   };
 
@@ -75,11 +77,11 @@ const CodeSpaceCard: React.FC<CodeSpaceCardProps> = ({
               />
             </div>
           ) : (
-            <p className="text-sm text-gray-600">No description provided</p>
+            <p className="text-sm text-gray-600">{t('common.noDescription')}</p>
           )}
         </CardContent>
         <CardFooter className="flex justify-between pt-0 text-xs text-gray-500">
-          <span>By {owner_name}</span>
+          <span>{t('common.by')} {owner_name}</span>
           <span>{formatDate(codeSpace.created_at)}</span>
         </CardFooter>
       </Card>
@@ -88,8 +90,8 @@ const CodeSpaceCard: React.FC<CodeSpaceCardProps> = ({
         isOpen={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
         onConfirm={handleDeleteConfirm}
-        title="코드스페이스 삭제 확인"
-        description={`'${name}' 코드스페이스를 삭제하려면 비밀번호를 입력해주세요.\n코드스페이스를 삭제하면 하위 코드피스에 접근할 수 없습니다!`}
+        title={t('codeSpace.deleteConfirm.title')}
+        description={t('codeSpace.deleteConfirm.description', { name })}
       />
     </>
   );

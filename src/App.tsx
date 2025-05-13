@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,7 +14,7 @@ import CodePieceDetails from "@/pages/CodePieceDetails";
 import ComparePieces from "@/pages/ComparePieces";
 import NotFound from "@/pages/NotFound";
 import EditCodeSpace from "@/pages/EditCodeSpace";
-import Footer from "./components/Footer";
+import Footer from "@/components/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,7 +49,6 @@ const App = () => (
         </div>
       </BrowserRouter>
       <Footer />
-
     </TooltipProvider>
   </QueryClientProvider>
 );

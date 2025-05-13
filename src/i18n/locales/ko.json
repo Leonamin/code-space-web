@@ -1,0 +1,126 @@
+{
+  "common": {
+    "back": "뒤로가기",
+    "cancel": "취소",
+    "create": "생성",
+    "edit": "수정",
+    "delete": "삭제",
+    "save": "저장",
+    "loading": "로딩중...",
+    "password": "비밀번호",
+    "passwordPlaceholder": "비밀번호를 입력하세요",
+    "name": "이름",
+    "description": "설명",
+    "author": "작성자",
+    "language": "언어",
+    "code": "코드",
+    "time": "시간",
+    "noDescription": "설명이 없습니다",
+    "errors": {
+      "loadFailed": "불러오기 실패",
+      "deleteFailed": "삭제에 실패했습니다. 비밀번호를 확인해주세요.",
+      "updateFailed": "수정에 실패했습니다. 비밀번호를 확인해주세요.",
+      "createFailed": "생성에 실패했습니다"
+    },
+    "success": {
+      "created": "생성되었습니다",
+      "updated": "수정되었습니다",
+      "deleted": "삭제되었습니다"
+    }
+  },
+  "codePiece": {
+    "back": "뒤로가기",
+    "delete": "삭제하기",
+    "notFound": "코드 피스를 찾을 수 없습니다",
+    "language": "언어",
+    "author": "작성자",
+    "time": "시간",
+    "description": "설명",
+    "code": "코드",
+    "create": {
+      "title": "새 코드 피스 생성",
+      "namePlaceholder": "바움쿠헨",
+      "authorPlaceholder": "드워프 햄스터",
+      "descriptionPlaceholder": "햄스터는 살아있는 밀웜을 좋아해요",
+      "customLanguage": "기타 언어",
+      "customLanguagePlaceholder": "언어 입력",
+      "submit": "생성하기",
+      "submitting": "생성중..."
+    },
+    "edit": {
+      "title": "코드 피스 수정",
+      "namePlaceholder": "변경하지 않음",
+      "authorPlaceholder": "변경하지 않음",
+      "descriptionPlaceholder": "변경하지 않음",
+      "customLanguage": "커스텀 언어",
+      "customLanguagePlaceholder": "언어 이름 입력",
+      "submit": "수정 완료",
+      "submitAndView": "수정 후 상세보기",
+      "submitting": "수정 중..."
+    },
+    "deleteConfirm": {
+      "title": "코드 피스 삭제 확인",
+      "description": "{{name}} 코드 피스를 삭제하려면 비밀번호를 입력해주세요.",
+      "passwordPlaceholder": "비밀번호를 입력하세요"
+    },
+    "errors": {
+      "loadFailed": "코드 피스 불러오기 실패!",
+      "deleteFailed": "삭제에 실패했습니다. 비밀번호를 확인해주세요."
+    },
+    "success": {
+      "deleted": "코드 피스가 삭제되었습니다"
+    },
+    "compare": {
+      "title": "코드 비교",
+      "details": "자세히",
+      "noPieces": "비교할 코드 피스가 없습니다",
+      "goHome": "홈으로"
+    }
+  },
+  "codeSpace": {
+    "create": {
+      "title": "새로운 코드스페이스 생성",
+      "namePlaceholder": "코드스페이스",
+      "descriptionPlaceholder": "코드 스페이스 설명",
+      "authorPlaceholder": "햄스터",
+      "submit": "코드스페이스 생성",
+      "submitting": "생성중"
+    },
+    "edit": {
+      "title": "코드스페이스 수정",
+      "namePlaceholder": "코드스페이스",
+      "descriptionPlaceholder": "코드 스페이스 설명",
+      "authorPlaceholder": "햄스터",
+      "submit": "수정 완료",
+      "submitAndView": "수정 후 상세보기",
+      "submitting": "수정중"
+    },
+    "deleteConfirm": {
+      "title": "코드스페이스 삭제 확인",
+      "description": "{{name}} 코드스페이스를 삭제하려면 비밀번호를 입력해주세요.\n코드스페이스를 삭제하면 하위 코드피스에 접근할 수 없습니다!",
+      "passwordPlaceholder": "비밀번호를 입력하세요"
+    },
+    "empty": {
+      "title": "코드 스페이스가 없습니다",
+      "subtitle": "첫번째 코드 스페이스를 만들어보세요!"
+    },
+    "pieces": {
+      "title": "코드 피스",
+      "empty": {
+        "title": "코드 피스가 없습니다",
+        "subtitle": "첫번째 코드 피스를 만들어보세요!"
+      }
+    }
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "description": "죄송합니다. 요청하신 페이지가 존재하지 않거나 이동되었습니다.",
+    "path": "경로",
+    "returnHome": "홈으로 돌아가기"
+  },
+  "validation": {
+    "required": "{{field}}은(는) 필수 항목입니다",
+    "minLength": "{{field}}은(는) 최소 {{min}}자 이상이어야 합니다",
+    "password": "비밀번호는 최소 4자리 이상이어야 합니다"
+  }
+} 

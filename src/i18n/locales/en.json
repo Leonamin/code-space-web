@@ -1,0 +1,126 @@
+{
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "loading": "Loading...",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "name": "Name",
+    "description": "Description",
+    "author": "Author",
+    "language": "Language",
+    "code": "Code",
+    "time": "Time",
+    "noDescription": "No description provided",
+    "errors": {
+      "loadFailed": "Failed to load",
+      "deleteFailed": "Delete failed. Please check your password.",
+      "updateFailed": "Update failed. Please check your password.",
+      "createFailed": "Failed to create"
+    },
+    "success": {
+      "created": "Created successfully",
+      "updated": "Updated successfully",
+      "deleted": "Deleted successfully"
+    }
+  },
+  "codePiece": {
+    "back": "Back",
+    "delete": "Delete",
+    "notFound": "Code Piece Not Found",
+    "language": "Language",
+    "author": "Author",
+    "time": "Time",
+    "description": "Description",
+    "code": "Code",
+    "create": {
+      "title": "Create New Code Piece",
+      "namePlaceholder": "Baumkuchen",
+      "authorPlaceholder": "Dwarf Hamster",
+      "descriptionPlaceholder": "Hamsters love live mealworms",
+      "customLanguage": "Custom Language",
+      "customLanguagePlaceholder": "Enter language",
+      "submit": "Create",
+      "submitting": "Creating..."
+    },
+    "edit": {
+      "title": "Edit Code Piece",
+      "namePlaceholder": "Leave unchanged",
+      "authorPlaceholder": "Leave unchanged",
+      "descriptionPlaceholder": "Leave unchanged",
+      "customLanguage": "Custom Language",
+      "customLanguagePlaceholder": "Enter language name",
+      "submit": "Save Changes",
+      "submitAndView": "Save and View Details",
+      "submitting": "Saving..."
+    },
+    "deleteConfirm": {
+      "title": "Delete Code Piece",
+      "description": "Please enter your password to delete the code piece '{{name}}'.",
+      "passwordPlaceholder": "Enter your password"
+    },
+    "errors": {
+      "loadFailed": "Failed to load code piece!",
+      "deleteFailed": "Delete failed. Please check your password."
+    },
+    "success": {
+      "deleted": "Code piece has been deleted"
+    },
+    "compare": {
+      "title": "Compare Code",
+      "details": "Details",
+      "noPieces": "No code pieces to compare",
+      "goHome": "Go Home"
+    }
+  },
+  "codeSpace": {
+    "create": {
+      "title": "Create New Code Space",
+      "namePlaceholder": "Code Space",
+      "descriptionPlaceholder": "Code space description",
+      "authorPlaceholder": "Hamster",
+      "submit": "Create Code Space",
+      "submitting": "Creating"
+    },
+    "edit": {
+      "title": "Edit Code Space",
+      "namePlaceholder": "Code Space",
+      "descriptionPlaceholder": "Code space description",
+      "authorPlaceholder": "Hamster",
+      "submit": "Save Changes",
+      "submitAndView": "Save and View Details",
+      "submitting": "Saving"
+    },
+    "deleteConfirm": {
+      "title": "Delete Code Space",
+      "description": "Please enter your password to delete the code space '{{name}}'.\nDeleting a code space will make its code pieces inaccessible!",
+      "passwordPlaceholder": "Enter your password"
+    },
+    "empty": {
+      "title": "No Code Spaces",
+      "subtitle": "Create your first code space!"
+    },
+    "pieces": {
+      "title": "Code Pieces",
+      "empty": {
+        "title": "No Code Pieces",
+        "subtitle": "Create your first code piece!"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you're looking for doesn't exist or has been moved.",
+    "path": "Path",
+    "returnHome": "Return to Home"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "minLength": "{{field}} must be at least {{min}} characters",
+    "password": "Password must be at least 4 characters"
+  }
+}

@@ -1,8 +1,8 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "react-i18next";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { api, CreateCodeSpaceRequest } from "@/services/api";
@@ -20,20 +20,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 // Validation schema
-const formSchema = z.object({
-  name: z.string().min(1, "이름은 필수 항목입니다."),
+const formSchema = (t: (key: string, options?: any) => string) => z.object({
+  name: z.string().min(1, t('validation.required', { field: t('common.name') })),
   description: z.string().optional(),
-  owner_name: z.string().min(1, "작성자는 필수항목입니다."),
-  password: z.string().min(4, "비밀번호는 최소 4자리 이상이어야합니다."),
+  owner_name: z.string().min(1, t('validation.required', { field: t('common.author') })),
+  password: z.string().min(4, t('validation.password')),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<ReturnType<typeof formSchema>>;
 
 const CreateCodeSpace: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema(t)),
     defaultValues: {
       name: "",
       description: "",
@@ -43,13 +44,21 @@ const CreateCodeSpace: React.FC = () => {
   });
 
   const createCodeSpaceMutation = useMutation({
-    mutationFn: (data: CreateCodeSpaceRequest) => api.createCodeSpace(data),
+    mutationFn: (data: FormValues) => {
+      const requestData: CreateCodeSpaceRequest = {
+        name: data.name,
+        description: data.description || "",
+        owner_name: data.owner_name,
+        password: data.password,
+      };
+      return api.createCodeSpace(requestData);
+    },
     onSuccess: () => {
-      toast.success("코드스페이스 생성 성공!");
+      toast.success(t('common.success.created'));
       navigate("/");
     },
     onError: () => {
-      toast.error("코드스페이스 생성 실패");
+      toast.error(t('common.errors.createFailed'));
     },
   });
 
@@ -59,7 +68,7 @@ const CreateCodeSpace: React.FC = () => {
 
   return (
     <div className="container max-w-xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6 text-primary text-center">새로운 코드스페이스 생성</h1>
+      <h1 className="text-2xl font-bold mb-6 text-primary text-center">{t('codeSpace.create.title')}</h1>
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -68,9 +77,9 @@ const CreateCodeSpace: React.FC = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>이름</FormLabel>
+                <FormLabel>{t('common.name')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="코드스페이스" {...field} />
+                  <Input placeholder={t('codeSpace.create.namePlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -82,9 +91,9 @@ const CreateCodeSpace: React.FC = () => {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>설명 (선택)</FormLabel>
+                <FormLabel>{t('common.description')} ({t('common.optional')})</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="코드 스페이스 설명" {...field} />
+                  <Textarea placeholder={t('codeSpace.create.descriptionPlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,9 +105,9 @@ const CreateCodeSpace: React.FC = () => {
             name="owner_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>작성자</FormLabel>
+                <FormLabel>{t('common.author')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="햄스터" {...field} />
+                  <Input placeholder={t('codeSpace.create.authorPlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -110,9 +119,9 @@ const CreateCodeSpace: React.FC = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>비밀번호</FormLabel>
+                <FormLabel>{t('common.password')}</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Password" {...field} />
+                  <Input type="password" placeholder={t('common.passwordPlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,10 +130,10 @@ const CreateCodeSpace: React.FC = () => {
           
           <div className="flex space-x-4 justify-end pt-4">
             <Button type="button" variant="outline" onClick={() => navigate("/")}>
-              취소
+              {t('common.cancel')}
             </Button>
             <Button type="submit" className="bg-primary" disabled={createCodeSpaceMutation.isPending}>
-              {createCodeSpaceMutation.isPending ? "생성중" : "코드스페이스 생성"}
+              {createCodeSpaceMutation.isPending ? t('codeSpace.create.submitting') : t('codeSpace.create.submit')}
             </Button>
           </div>
         </form>

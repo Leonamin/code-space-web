@@ -1,7 +1,7 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Plus } from "lucide-react";
 import { api, CodeSpace } from "@/services/api";
 import CodeSpaceCard from "@/components/CodeSpaceCard";
@@ -12,6 +12,7 @@ import Logo from '@/components/Logo'
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const {
         data,
@@ -29,7 +30,7 @@ const Home: React.FC = () => {
         meta: {
             onSettled: (_, error) => {
                 if (error) {
-                    toast.error("Failed to load code spaces");
+                    toast.error(t('common.errors.loadFailed'));
                 }
             },
         },
@@ -68,8 +69,8 @@ const Home: React.FC = () => {
                         <Logo size="128" />
                     </div>
                     <div className="flex flex-col items-center justify-center p-8">
-                        <p className="text-gray-500 mb-4">코드 스페이스가 없습니다.</p>
-                        <p className="text-gray-500">첫번째 코드 스페이스를 만들어보세요!</p>
+                        <p className="text-gray-500 mb-4">{t('codeSpace.empty.title')}</p>
+                        <p className="text-gray-500">{t('codeSpace.empty.subtitle')}</p>
                     </div>
                 </div>
             )}
@@ -77,7 +78,7 @@ const Home: React.FC = () => {
             <FloatingActionButton
                 icon={<Plus size={24} />}
                 onClick={handleCreateCodeSpace}
-                label="생성"
+                label={t('common.create')}
             />
         </div>
     );

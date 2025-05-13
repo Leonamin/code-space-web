@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { CodePieceSummary } from "@/services/api";
 import { cn } from "@/lib/utils";
 import { api } from "@/services/api";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { CardActions } from "./codePiece/CardActions";
 import { DeleteDialog } from "./codePiece/DeleteDialog";
@@ -24,6 +25,7 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
   onViewDetails,
   onDeleted,
 }) => {
+  const { t } = useTranslation();
   const { id, name, description, language, owner_name } = codePiece;
   const navigate = useNavigate();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -54,11 +56,11 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
   const handleDeleteConfirm = async (password: string) => {
     try {
       await api.deleteCodePiece(id, password);
-      toast.success("코드 피스가 삭제되었습니다");
+      toast.success(t('common.success.deleted'));
       setShowDeleteDialog(false);
       if (onDeleted) onDeleted();
     } catch (error) {
-      toast.error("삭제에 실패했습니다. 비밀번호를 확인해주세요.");
+      toast.error(t('common.errors.deleteFailed'));
     }
   };
 
@@ -102,7 +104,7 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
         <CardContent className="pb-2">
           <div className="line-clamp-2 text-sm text-gray-600 mb-2">
             <PlainTextViewer 
-              content={description || "No description provided"}
+              content={description || t('common.noDescription')}
               maxLength={100}
               maxLines={2}
             />
@@ -114,7 +116,7 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
           </div>
         </CardContent>
         <CardFooter className="pt-0 text-xs text-gray-500">
-          <span>By {owner_name}</span>
+          <span>{t('common.by')} {owner_name}</span>
         </CardFooter>
       </Card>
 
@@ -122,8 +124,8 @@ const CodePieceCard: React.FC<CodePieceCardProps> = ({
         isOpen={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
         onConfirm={handleDeleteConfirm}
-        title="코드 피스 삭제 확인"
-        description={`'${name}' 코드 피스를 삭제하려면 비밀번호를 입력해주세요.`}
+        title={t('codePiece.deleteConfirm.title')}
+        description={t('codePiece.deleteConfirm.description', { name })}
       />
     </>
   );
